@@ -22,49 +22,49 @@ class AyudaClass {
         const descripcion = req.body.descripcion;
         const idCreador = req.usuario._id;
         const nuevaAyuda = new ayudaModel_1.default({
-            idCreador: idCreador,
-            nombre: nombre,
-            descripcion: descripcion
+            idCreador,
+            nombre,
+            descripcion,
         });
         nuevaAyuda.save((err, ayudaDB) => {
             if (err) {
                 return resp.json({
                     ok: false,
                     mensaje: `Error interno`,
-                    err
+                    err,
                 });
             }
             else {
                 return resp.json({
                     ok: true,
                     mensaje: `Ayuda creada`,
-                    ayudaDB
+                    ayudaDB,
                 });
             }
         });
     }
     editarAyuda(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.get('id');
+            const id = req.get("id");
             const estado = req.body.estado;
             ayudaModel_1.default.findById(id, (err, ayudaDB) => {
                 if (err) {
                     return resp.json({
                         ok: false,
                         mensaje: `Error interno`,
-                        err
+                        err,
                     });
                 }
                 if (!ayudaDB) {
                     return resp.json({
                         ok: false,
-                        mensaje: `No se encontró una ayuda`
+                        mensaje: `No se encontró una ayuda`,
                     });
                 }
                 const query = {
                     nombre: req.body.nombre,
                     descripcion: req.body.descripcion,
-                    estado: estado
+                    estado: estado,
                 };
                 if (!query.nombre) {
                     query.nombre = ayudaDB.nombre;
@@ -77,13 +77,13 @@ class AyudaClass {
                         return resp.json({
                             ok: false,
                             mensaje: `Error interno`,
-                            err
+                            err,
                         });
                     }
                     return resp.json({
                         ok: true,
                         mensaje: `Ayuda actualizada`,
-                        ayudaDB
+                        ayudaDB,
                     });
                 });
             });
@@ -91,18 +91,18 @@ class AyudaClass {
     }
     obtenerAyudaID(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.get('id');
+            const id = req.get("id");
             const ayudaDB = yield ayudaModel_1.default.findById(id);
             if (!ayudaDB) {
                 return resp.json({
                     ok: false,
-                    mensaje: `No se encontró una ayuda o un error ha ocurrido`
+                    mensaje: `No se encontró una ayuda o un error ha ocurrido`,
                 });
             }
             else {
                 return resp.json({
                     ok: true,
-                    ayudaDB
+                    ayudaDB,
                 });
             }
         });
@@ -113,32 +113,32 @@ class AyudaClass {
             if (!ayudasDB) {
                 return resp.json({
                     ok: false,
-                    mensaje: `Error interno o no se encontraron ayuda(s)`
+                    mensaje: `Error interno o no se encontraron ayuda(s)`,
                 });
             }
             else {
                 resp.json({
                     ok: true,
-                    ayudasDB
+                    ayudasDB,
                 });
             }
         });
     }
     eliminarAyuda(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = req.get('id');
+            const id = req.get("id");
             const ayudaDB = yield ayudaModel_1.default.findByIdAndDelete(id);
             if (!ayudaDB) {
                 return resp.json({
                     ok: false,
-                    mensaje: `No se encontró una ayuda o un error ha ocurrido`
+                    mensaje: `No se encontró una ayuda o un error ha ocurrido`,
                 });
             }
             else {
                 return resp.json({
                     ok: true,
                     mensaje: `Ayuda eliminada`,
-                    ayudaDB
+                    ayudaDB,
                 });
             }
         });
